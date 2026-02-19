@@ -8,6 +8,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import CommitteeDashboard from './pages/CommitteeDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ComplaintDetails from './pages/ComplaintDetails';
+import SeedData from './pages/SeedData';
 
 // Layout & Utilities
 import MainLayout from './components/MainLayout';
@@ -38,6 +39,7 @@ const App = () => {
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login/:role" element={<Login />} />
+            <Route path="/seed" element={<SeedData />} />
 
             {/* Protected Dashboard Routes — wrapped in MainLayout */}
             <Route

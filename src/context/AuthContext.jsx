@@ -1,33 +1,16 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import {
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+} from 'firebase/auth';
+import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
+import { auth, db } from '../firebase/config';
 
 // ========================================
-// Mock Users Database
+// Departments list
 // ========================================
-const MOCK_USERS = {
-    student: {
-        uid: 'stu-001',
-        email: 'john.doe@college.edu',
-        name: 'John Doe',
-        role: 'student',
-        department: 'Computer Science',
-    },
-    committee: {
-        uid: 'com-001',
-        email: 'committee@campuswatch.in',
-        name: 'Priya Sharma',
-        role: 'committee',
-        department: 'Student Affairs',
-    },
-    admin: {
-        uid: 'adm-001',
-        email: 'admin@campuswatch.in',
-        name: 'Campus Admin',
-        role: 'admin',
-        phone: '+919876543210',
-    },
-};
-
-// Available departments for registration
 export const DEPARTMENTS = [
     'Computer Science',
     'Electronics & Communication',
@@ -51,85 +34,150 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); // true initially for auth state check
+
+    // Listen to Firebase auth state changes
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            if (firebaseUser) {
+                // Fetch user profile from Firestore
+                try {
+                    const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+                        setUser({
+                            uid: firebaseUser.uid,
+                            email: firebaseUser.email,
+                            name: userData.name || 'User',
+                            role: userData.role || 'student',
+                            department: userData.department || null,
+                            phone: userData.phone || null,
+                        });
+                    } else {
+                        // User exists in Auth but not Firestore — sign out
+                        await signOut(auth);
+                        setUser(null);
+                    }
+                } catch (err) {
+                    console.error('Error fetching user profile:', err);
+                    setUser(null);
+                }
+            } else {
+                setUser(null);
+            }
+            setIsLoading(false);
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     /**
-     * Mock login — accepts role and credentials,
-     * simulates auth delay, then sets user state.
+     * Login with Firebase Auth
+     * Fetches user role/profile from Firestore `users` collection
      */
     const login = async (role, email, password) => {
         setIsLoading(true);
+        try {
+            const cred = await signInWithEmailAndPassword(auth, email, password);
 
-        // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 800));
+            // Fetch user profile from Firestore
+            const userDoc = await getDoc(doc(db, 'users', cred.user.uid));
 
-        // Basic validation
-        if (!email || !password) {
+            if (!userDoc.exists()) {
+                await signOut(auth);
+                throw new Error('Account not found. Please contact admin.');
+            }
+
+            const userData = userDoc.data();
+
+            // Verify role matches
+            if (userData.role !== role) {
+                await signOut(auth);
+                throw new Error(`This account is not registered as a ${role}.`);
+            }
+
+            const userProfile = {
+                uid: cred.user.uid,
+                email: cred.user.email,
+                name: userData.name || 'User',
+                role: userData.role,
+                department: userData.department || null,
+                phone: userData.phone || null,
+            };
+
+            setUser(userProfile);
             setIsLoading(false);
-            throw new Error('Email and password are required.');
-        }
-
-        // For mock: any credentials work, role determines user
-        const mockUser = MOCK_USERS[role];
-        if (!mockUser) {
+            return userProfile;
+        } catch (err) {
             setIsLoading(false);
-            throw new Error('Invalid role specified.');
+            // Map Firebase error codes to user-friendly messages
+            if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+                throw new Error('Invalid email or password.');
+            } else if (err.code === 'auth/wrong-password') {
+                throw new Error('Incorrect password.');
+            } else if (err.code === 'auth/too-many-requests') {
+                throw new Error('Too many failed attempts. Try again later.');
+            }
+            throw err;
         }
-
-        // Set user with the provided email (override mock for students)
-        setUser({
-            ...mockUser,
-            email: role === 'student' ? email : mockUser.email,
-        });
-
-        setIsLoading(false);
-        return mockUser;
     };
 
     /**
-     * Mock register — students only.
-     * Simulates account creation.
+     * Register a new student account
+     * Creates Firebase Auth user + Firestore profile
      */
     const register = async ({ name, email, password, department }) => {
         setIsLoading(true);
+        try {
+            // Validation
+            if (!name || !email || !password || !department) {
+                throw new Error('All fields are required.');
+            }
+            if (password.length < 6) {
+                throw new Error('Password must be at least 6 characters.');
+            }
 
-        // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+            // Create Firebase Auth user
+            const cred = await createUserWithEmailAndPassword(auth, email, password);
 
-        // Basic validation
-        if (!name || !email || !password || !department) {
+            // Create Firestore user profile
+            const userProfile = {
+                email,
+                name,
+                role: 'student',
+                department,
+                phone: null,
+                createdAt: Timestamp.now(),
+            };
+
+            await setDoc(doc(db, 'users', cred.user.uid), userProfile);
+
+            const fullUser = {
+                uid: cred.user.uid,
+                ...userProfile,
+            };
+
+            setUser(fullUser);
             setIsLoading(false);
-            throw new Error('All fields are required.');
-        }
-
-        if (!email.includes('@') || !email.includes('.')) {
+            return fullUser;
+        } catch (err) {
             setIsLoading(false);
-            throw new Error('Please use a valid college email address.');
+            if (err.code === 'auth/email-already-in-use') {
+                throw new Error('An account with this email already exists.');
+            } else if (err.code === 'auth/weak-password') {
+                throw new Error('Password is too weak. Use at least 6 characters.');
+            } else if (err.code === 'auth/invalid-email') {
+                throw new Error('Please enter a valid email address.');
+            }
+            throw err;
         }
-
-        if (password.length < 6) {
-            setIsLoading(false);
-            throw new Error('Password must be at least 6 characters.');
-        }
-
-        // Create mock student user
-        const newUser = {
-            uid: `stu-${Date.now()}`,
-            email,
-            name,
-            role: 'student',
-            department,
-        };
-
-        setUser(newUser);
-        setIsLoading(false);
-        return newUser;
     };
 
     /**
-     * Logout — clears user state
+     * Logout — signs out of Firebase
      */
-    const logout = () => {
+    const logout = async () => {
+        await signOut(auth);
         setUser(null);
     };
 
