@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import StudentDashboard from './pages/StudentDashboard';
 import CommitteeDashboard from './pages/CommitteeDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import ComplaintDetails from './pages/ComplaintDetails';
 
 // Layout
 import MainLayout from './components/MainLayout';
@@ -72,6 +73,16 @@ const App = () => {
                     element={
                         <ProtectedRoute allowedRoles={['admin']}>
                             <AdminDashboard />
+                        </ProtectedRoute>
+                    }
+                />
+
+                {/* Complaint Detail (any authenticated role) */}
+                <Route
+                    path="/complaint/:id"
+                    element={
+                        <ProtectedRoute allowedRoles={['student', 'committee', 'admin']}>
+                            <ComplaintDetails />
                         </ProtectedRoute>
                     }
                 />

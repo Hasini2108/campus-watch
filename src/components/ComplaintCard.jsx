@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     ThumbsUp,
@@ -54,9 +55,10 @@ const urgencyConfig = {
 // ========================================
 // Complaint Card
 // ========================================
-const ComplaintCard = ({ complaint, onClick, showUpvote = true, index = 0 }) => {
+const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
     const { toggleUpvote } = useComplaints();
     const { user } = useAuth();
+    const navigate = useNavigate();
 
     const status = statusConfig[complaint.status] || statusConfig.open;
     const StatusIcon = status.icon;
@@ -92,17 +94,17 @@ const ComplaintCard = ({ complaint, onClick, showUpvote = true, index = 0 }) => 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
-            onClick={onClick}
+            onClick={() => navigate(`/complaint/${complaint.id}`)}
             className="bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 cursor-pointer group overflow-hidden"
         >
             {/* Urgency top stripe */}
             {urgency && (
                 <div
                     className={`h-1 ${complaint.urgency === 'high'
-                            ? 'bg-gradient-to-r from-danger-500 to-accent-500'
-                            : complaint.urgency === 'medium'
-                                ? 'bg-gradient-to-r from-warning-400 to-warning-500'
-                                : 'bg-gray-200'
+                        ? 'bg-gradient-to-r from-danger-500 to-accent-500'
+                        : complaint.urgency === 'medium'
+                            ? 'bg-gradient-to-r from-warning-400 to-warning-500'
+                            : 'bg-gray-200'
                         }`}
                 />
             )}
@@ -184,8 +186,8 @@ const ComplaintCard = ({ complaint, onClick, showUpvote = true, index = 0 }) => 
                                 whileTap={{ scale: 0.85 }}
                                 onClick={handleUpvote}
                                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all ${hasUpvoted
-                                        ? 'bg-primary-50 text-primary-600'
-                                        : 'bg-gray-50 text-gray-500 hover:bg-primary-50 hover:text-primary-600'
+                                    ? 'bg-primary-50 text-primary-600'
+                                    : 'bg-gray-50 text-gray-500 hover:bg-primary-50 hover:text-primary-600'
                                     }`}
                             >
                                 <motion.div
