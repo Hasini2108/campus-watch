@@ -9,7 +9,7 @@ import CommitteeDashboard from './pages/CommitteeDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ComplaintDetails from './pages/ComplaintDetails';
 
-// Layout
+// Layout & Utilities
 import MainLayout from './components/MainLayout';
 
 // ========================================

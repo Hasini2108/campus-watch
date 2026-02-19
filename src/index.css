@@ -19,6 +19,8 @@ body {
   color: #111827;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
 }
 
 /* ========================================
@@ -44,13 +46,16 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: #F3F4F6;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #C7D2FE;
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #818CF8;
 }
@@ -59,9 +64,12 @@ body {
    Status Badge Pulse (for Urgent items)
    ======================================== */
 @keyframes urgentPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5);
   }
+
   50% {
     box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
   }
@@ -90,4 +98,71 @@ body {
 
 .gradient-bg-soft {
   background: linear-gradient(135deg, #EEF2FF 0%, #FDF2F8 100%);
+}
+
+/* ========================================
+   Safe Area (for PWA bottom nav)
+   ======================================== */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ========================================
+   Selection Colors
+   ======================================== */
+::selection {
+  background-color: rgba(79, 70, 229, 0.15);
+  color: #4F46E5;
+}
+
+/* ========================================
+   Focus Ring
+   ======================================== */
+.focus-ring:focus-visible {
+  outline: 2px solid #818CF8;
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* ========================================
+   Fade In Animation
+   ======================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* ========================================
+   Line Clamp Utility
+   ======================================== */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
