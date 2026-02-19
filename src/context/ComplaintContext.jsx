@@ -12,7 +12,8 @@ import {
     query,
     orderBy,
 } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { db, storage } from '../firebase/config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // ========================================
 // Categories
@@ -79,6 +80,8 @@ export const ComplaintProvider = ({ children }) => {
             confirmedBy: [],
             adminResponse: null,
             proofImage: null,
+            imageUrl: null, // New field for real image URL
+            imageName: complaint.imageName || null, // Keep original name for reference
             extensions: 0,
             flagged: false,
             createdAt: Timestamp.now(),
@@ -87,6 +90,25 @@ export const ComplaintProvider = ({ children }) => {
         };
 
         const docRef = await addDoc(collection(db, 'complaints'), newComplaint);
+
+        // Handle image upload if file is provided
+        if (complaint.imageFile) {
+            try {
+                const storageRef = ref(storage, `complaints/${docRef.id}/${complaint.imageFile.name}`);
+                await uploadBytes(storageRef, complaint.imageFile);
+                const downloadURL = await getDownloadURL(storageRef);
+
+                await updateDoc(docRef, {
+                    imageUrl: downloadURL
+                });
+
+                newComplaint.imageUrl = downloadURL;
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                // Continue without image if upload fails
+            }
+        }
+
         return { ...newComplaint, id: docRef.id };
     };
 

@@ -224,14 +224,23 @@ const ComplaintDetails = () => {
                             </div>
 
                             {/* Image placeholder */}
-                            {complaint.image && (
+                            {/* Image Attachment */}
+                            {complaint.imageUrl ? (
+                                <div className="rounded-xl bg-slate-900 border border-slate-700 overflow-hidden mb-6">
+                                    <img
+                                        src={complaint.imageUrl}
+                                        alt="Complaint attachment"
+                                        className="w-full h-auto max-h-[500px] object-contain"
+                                    />
+                                </div>
+                            ) : complaint.image ? (
                                 <div className="rounded-xl bg-slate-700 p-8 flex items-center justify-center mb-6">
                                     <div className="text-center">
                                         <ImageIcon className="w-8 h-8 text-slate-500 mx-auto mb-2" />
                                         <p className="text-xs text-slate-400">Attachment: {complaint.image}</p>
                                     </div>
                                 </div>
-                            )}
+                            ) : null}
 
                             {/* Action Buttons */}
                             <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-700">

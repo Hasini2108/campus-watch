@@ -30,6 +30,7 @@ const NewComplaintModal = ({ isOpen, onClose }) => {
     const [location, setLocation] = useState('');
     const [visibility, setVisibility] = useState('public');
     const [imageName, setImageName] = useState('');
+    const [imageFile, setImageFile] = useState(null);
 
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -45,6 +46,7 @@ const NewComplaintModal = ({ isOpen, onClose }) => {
         setLocation('');
         setVisibility('public');
         setImageName('');
+        setImageFile(null);
         setError('');
         setSuccess(false);
     };
@@ -57,7 +59,12 @@ const NewComplaintModal = ({ isOpen, onClose }) => {
     const handleImageSelect = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size must be less than 5MB');
+                return;
+            }
             setImageName(file.name);
+            setImageFile(file);
         }
     };
 
@@ -77,7 +84,8 @@ const NewComplaintModal = ({ isOpen, onClose }) => {
 
         setLoading(true);
 
-        await new Promise((resolve) => setTimeout(resolve, 1200));
+        // Removed artificial delay as addComplaint now handles upload
+        // await new Promise((resolve) => setTimeout(resolve, 1200));
 
         addComplaint({
             title: title.trim(),
@@ -87,6 +95,7 @@ const NewComplaintModal = ({ isOpen, onClose }) => {
             location: location.trim() || null,
             visibility,
             image: imageName || null,
+            imageFile: imageFile || null,
             submittedBy: user?.uid || 'unknown',
             submitterName: 'Anonymous Student',
         });
