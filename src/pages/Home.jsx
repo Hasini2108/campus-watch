@@ -23,13 +23,13 @@ const AnimatedStat = ({ icon: Icon, label, end, suffix = '' }) => {
     const { count, ref } = useCountUp(end, 2000);
     return (
         <div ref={ref} className="glass rounded-2xl px-6 py-4 flex items-center gap-3">
-            <Icon className="w-5 h-5 text-primary-600" />
+            <Icon className="w-5 h-5 text-primary-400" />
             <div className="text-left">
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-2xl font-bold text-slate-100">
                     {count}
                     {suffix}
                 </p>
-                <p className="text-xs text-gray-500">{label}</p>
+                <p className="text-xs text-slate-400">{label}</p>
             </div>
         </div>
     );
@@ -100,13 +100,13 @@ const Home = () => {
             <section className="relative min-h-screen flex items-center justify-center px-4">
                 {/* Background gradient blobs */}
                 <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float" />
+                    <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float" />
                     <div
-                        className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float"
+                        className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float"
                         style={{ animationDelay: '2s' }}
                     />
                     <div
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-600 rounded-full mix-blend-screen filter blur-3xl opacity-15 animate-float"
                         style={{ animationDelay: '4s' }}
                     />
                 </div>
@@ -119,8 +119,8 @@ const Home = () => {
                         transition={{ duration: 0.5 }}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
                     >
-                        <Shield className="w-4 h-4 text-primary-600" />
-                        <span className="text-sm font-medium text-primary-600">
+                        <Shield className="w-4 h-4 text-primary-400" />
+                        <span className="text-sm font-medium text-primary-400">
                             Transparent. Accountable. Student-Powered.
                         </span>
                     </motion.div>
@@ -139,7 +139,7 @@ const Home = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed"
+                        className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed"
                     >
                         A community-verified campus grievance platform where every complaint is visible,
                         time-bound, and accountable. Your voice matters.
@@ -173,7 +173,7 @@ const Home = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
                                 onClick={() => navigate(role.path)}
-                                className="group relative overflow-hidden rounded-2xl p-6 text-left bg-white shadow-card hover:shadow-card-hover transition-shadow duration-300"
+                                className="group relative overflow-hidden rounded-2xl p-6 text-left bg-slate-800 border border-slate-700/50 shadow-card hover:shadow-card-hover transition-shadow duration-300"
                             >
                                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${role.color}`} />
                                 <div
@@ -181,9 +181,9 @@ const Home = () => {
                                 >
                                     <role.icon className="w-6 h-6 text-white" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2">{role.title}</h3>
-                                <p className="text-sm text-gray-500 mb-4">{role.description}</p>
-                                <div className="flex items-center gap-2 text-sm font-medium text-primary-600 group-hover:gap-3 transition-all">
+                                <h3 className="text-lg font-semibold text-slate-100 mb-2">{role.title}</h3>
+                                <p className="text-sm text-slate-400 mb-4">{role.description}</p>
+                                <div className="flex items-center gap-2 text-sm font-medium text-primary-400 group-hover:gap-3 transition-all">
                                     Login <ArrowRight className="w-4 h-4" />
                                 </div>
                             </motion.button>
@@ -195,7 +195,7 @@ const Home = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 1.2 }}
-                        className="flex flex-col items-center gap-2 text-gray-400"
+                        className="flex flex-col items-center gap-2 text-slate-500"
                     >
                         <span className="text-xs">Scroll to learn more</span>
                         <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
@@ -217,8 +217,8 @@ const Home = () => {
                         transition={{ duration: 0.5 }}
                         className="text-center mb-16"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
-                        <p className="text-gray-600 max-w-xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-4">How It Works</h2>
+                        <p className="text-slate-400 max-w-xl mx-auto">
                             From submission to verified resolution — every step is transparent and time-bound.
                         </p>
                     </motion.div>
@@ -231,10 +231,10 @@ const Home = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.4, delay: i * 0.15 }}
-                                className="relative bg-white rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-shadow group"
+                                className="relative bg-slate-800 border border-slate-700/50 rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-shadow group"
                             >
                                 {/* Step number */}
-                                <span className="absolute top-4 right-4 text-5xl font-black text-gray-100 group-hover:text-primary-100 transition-colors select-none">
+                                <span className="absolute top-4 right-4 text-5xl font-black text-slate-700 group-hover:text-primary-900 transition-colors select-none">
                                     {i + 1}
                                 </span>
 
@@ -243,8 +243,8 @@ const Home = () => {
                                 >
                                     <step.icon className="w-6 h-6 text-white" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-                                <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
+                                <h3 className="text-lg font-semibold text-slate-100 mb-2">{step.title}</h3>
+                                <p className="text-sm text-slate-400 leading-relaxed">{step.description}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -263,10 +263,10 @@ const Home = () => {
                         transition={{ duration: 0.5 }}
                         className="text-center mb-16"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-100 mb-4">
                             Built-in Accountability
                         </h2>
-                        <p className="text-gray-600 max-w-xl mx-auto">
+                        <p className="text-slate-400 max-w-xl mx-auto">
                             CampusWatch ensures no complaint is ignored and no resolution goes unverified.
                         </p>
                     </motion.div>
@@ -308,8 +308,8 @@ const Home = () => {
                                 >
                                     <item.icon className="w-7 h-7 text-white" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-900 mb-3">{item.title}</h3>
-                                <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
+                                <h3 className="text-lg font-semibold text-slate-100 mb-3">{item.title}</h3>
+                                <p className="text-sm text-slate-400 leading-relaxed">{item.description}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -354,7 +354,7 @@ const Home = () => {
             {/* ============================
           FOOTER
           ============================ */}
-            <footer className="border-t border-gray-200 py-12 px-4">
+            <footer className="border-t border-slate-800 py-12 px-4">
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
@@ -362,13 +362,13 @@ const Home = () => {
                         </div>
                         <span className="font-bold gradient-text">CampusWatch</span>
                     </div>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-slate-500">
                         © {new Date().getFullYear()} CampusWatch. Built for students, by students.
                     </p>
-                    <div className="flex gap-6 text-sm text-gray-500">
-                        <span className="hover:text-primary-600 cursor-pointer transition-colors">About</span>
-                        <span className="hover:text-primary-600 cursor-pointer transition-colors">Contact</span>
-                        <span className="hover:text-primary-600 cursor-pointer transition-colors">Privacy</span>
+                    <div className="flex gap-6 text-sm text-slate-500">
+                        <span className="hover:text-primary-400 cursor-pointer transition-colors">About</span>
+                        <span className="hover:text-primary-400 cursor-pointer transition-colors">Contact</span>
+                        <span className="hover:text-primary-400 cursor-pointer transition-colors">Privacy</span>
                     </div>
                 </div>
             </footer>

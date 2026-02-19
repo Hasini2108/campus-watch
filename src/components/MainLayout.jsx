@@ -57,15 +57,15 @@ const MainLayout = () => {
     };
 
     const roleBadgeColors = {
-        student: 'text-primary-600 bg-primary-50',
-        committee: 'text-accent-600 bg-accent-50',
-        admin: 'text-success-600 bg-success-50',
+        student: 'text-primary-400 bg-primary-900/50',
+        committee: 'text-accent-400 bg-accent-900/50',
+        admin: 'text-success-500 bg-success-50',
     };
 
     return (
         <div className="min-h-screen bg-background">
             {/* ============ Top Navbar (Glassmorphism) ============ */}
-            <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/20">
+            <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-700/50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         {/* Logo */}
@@ -90,8 +90,8 @@ const MainLayout = () => {
                                         key={item.label}
                                         onClick={() => navigate(item.path)}
                                         className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${isActive
-                                            ? 'bg-primary-50 text-primary-600 shadow-sm'
-                                            : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'
+                                            ? 'bg-primary-900/50 text-primary-400 shadow-sm'
+                                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                                             }`}
                                     >
                                         <item.icon className="w-4 h-4" />
@@ -110,7 +110,7 @@ const MainLayout = () => {
                             </div>
 
                             {/* Notifications (decorative) */}
-                            <button className="relative p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+                            <button className="relative p-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors">
                                 <Bell className="w-5 h-5" />
                                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-accent-500 rounded-full" />
                             </button>
@@ -120,7 +120,7 @@ const MainLayout = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={handleLogout}
-                                className="p-2 rounded-xl text-gray-400 hover:text-danger-500 hover:bg-danger-50 transition-colors"
+                                className="p-2 rounded-xl text-slate-400 hover:text-danger-400 hover:bg-danger-50 transition-colors"
                                 title="Logout"
                             >
                                 <LogOut className="w-5 h-5" />
@@ -129,7 +129,7 @@ const MainLayout = () => {
                             {/* Mobile menu toggle */}
                             <button
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="md:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 transition-colors"
+                                className="md:hidden p-2 rounded-xl text-slate-400 hover:bg-slate-800 transition-colors"
                             >
                                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                             </button>
@@ -146,7 +146,7 @@ const MainLayout = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
-                        className="fixed top-16 left-0 right-0 z-40 glass border-b border-white/20 md:hidden overflow-hidden"
+                        className="fixed top-16 left-0 right-0 z-40 glass border-b border-slate-700/50 md:hidden overflow-hidden"
                     >
                         <div className="px-4 py-3 space-y-1">
                             {items.map((item) => {
@@ -159,8 +159,8 @@ const MainLayout = () => {
                                             setMobileMenuOpen(false);
                                         }}
                                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive
-                                            ? 'bg-primary-50 text-primary-600'
-                                            : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'
+                                            ? 'bg-primary-900/50 text-primary-400'
+                                            : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
                                             }`}
                                     >
                                         <item.icon className="w-4 h-4" />
@@ -190,7 +190,7 @@ const MainLayout = () => {
 
             {/* ============ Mobile Bottom Navigation ============ */}
             <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
-                <div className="glass border-t border-white/20 safe-area-bottom">
+                <div className="glass border-t border-slate-700/50 safe-area-bottom">
                     <div className="flex items-center justify-around px-2 py-2">
                         {items.map((item) => {
                             const isActive = location.pathname === item.path;
@@ -199,13 +199,13 @@ const MainLayout = () => {
                                     key={item.label}
                                     onClick={() => navigate(item.path)}
                                     className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl min-w-[64px] transition-all ${isActive
-                                            ? 'text-primary-600'
-                                            : 'text-gray-400'
+                                        ? 'text-primary-400'
+                                        : 'text-slate-500'
                                         }`}
                                 >
                                     <motion.div
                                         whileTap={{ scale: 0.85 }}
-                                        className={`p-1.5 rounded-xl transition-colors ${isActive ? 'bg-primary-50' : ''
+                                        className={`p-1.5 rounded-xl transition-colors ${isActive ? 'bg-primary-900/50' : ''
                                             }`}
                                     >
                                         <item.icon className="w-5 h-5" />
@@ -217,7 +217,7 @@ const MainLayout = () => {
 
                         {/* Notifications bottom tab */}
                         <button
-                            className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl min-w-[64px] text-gray-400"
+                            className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl min-w-[64px] text-slate-500"
                         >
                             <div className="relative p-1.5 rounded-xl">
                                 <Bell className="w-5 h-5" />
@@ -229,7 +229,7 @@ const MainLayout = () => {
                         {/* Profile bottom tab */}
                         <button
                             onClick={handleLogout}
-                            className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl min-w-[64px] text-gray-400"
+                            className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl min-w-[64px] text-slate-500"
                         >
                             <div className="p-1.5 rounded-xl">
                                 <User className="w-5 h-5" />

@@ -143,9 +143,9 @@ const Login = () => {
         <div className="min-h-screen bg-background flex items-center justify-center px-4 py-10 relative overflow-hidden">
             {/* Background decoration */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" />
+                <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-600 rounded-full mix-blend-screen filter blur-3xl opacity-15 animate-float" />
                 <div
-                    className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"
+                    className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-600 rounded-full mix-blend-screen filter blur-3xl opacity-15 animate-float"
                     style={{ animationDelay: '3s' }}
                 />
             </div>
@@ -160,14 +160,14 @@ const Login = () => {
                 <motion.button
                     whileHover={{ x: -4 }}
                     onClick={() => navigate('/')}
-                    className="flex items-center gap-2 text-gray-500 hover:text-gray-800 mb-6 text-sm font-medium transition-colors"
+                    className="flex items-center gap-2 text-slate-400 hover:text-slate-200 mb-6 text-sm font-medium transition-colors"
                 >
                     <ArrowLeft className="w-4 h-4" />
                     Back to Home
                 </motion.button>
 
                 {/* Card */}
-                <div className="bg-white rounded-2xl shadow-glass relative overflow-hidden">
+                <div className="bg-slate-800 rounded-2xl shadow-glass border border-slate-700/50 relative overflow-hidden">
                     {/* Gradient accent bar */}
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${config.gradient}`} />
 
@@ -179,20 +179,20 @@ const Login = () => {
                             >
                                 <Icon className="w-8 h-8 text-white" />
                             </div>
-                            <h1 className="text-2xl font-bold text-gray-900">{config.title}</h1>
-                            <p className="text-sm text-gray-500 mt-1">
+                            <h1 className="text-2xl font-bold text-slate-100">{config.title}</h1>
+                            <p className="text-sm text-slate-400 mt-1">
                                 {isRegister ? config.registerSubtitle : config.loginSubtitle}
                             </p>
                         </div>
 
                         {/* Login / Register Toggle (Student only) */}
                         {config.showRegister && (
-                            <div className="flex bg-gray-100 rounded-xl p-1 mb-6">
+                            <div className="flex bg-slate-900 rounded-xl p-1 mb-6">
                                 <button
                                     onClick={() => !loading && handleToggle()}
                                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${!isRegister
-                                            ? 'bg-white shadow-sm text-gray-900'
-                                            : 'text-gray-500 hover:text-gray-700'
+                                        ? 'bg-slate-700 shadow-sm text-slate-100'
+                                        : 'text-slate-500 hover:text-slate-300'
                                         }`}
                                 >
                                     <LogIn className="w-4 h-4" />
@@ -201,8 +201,8 @@ const Login = () => {
                                 <button
                                     onClick={() => !loading && handleToggle()}
                                     className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all ${isRegister
-                                            ? 'bg-white shadow-sm text-gray-900'
-                                            : 'text-gray-500 hover:text-gray-700'
+                                        ? 'bg-slate-700 shadow-sm text-slate-100'
+                                        : 'text-slate-500 hover:text-slate-300'
                                         }`}
                                 >
                                     <UserPlus className="w-4 h-4" />
@@ -224,12 +224,12 @@ const Login = () => {
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         transition={{ type: 'spring', stiffness: 200 }}
-                                        className="w-16 h-16 rounded-full bg-success-100 flex items-center justify-center"
+                                        className="w-16 h-16 rounded-full bg-success-50 flex items-center justify-center"
                                     >
-                                        <CheckCircle className="w-8 h-8 text-success-600" />
+                                        <CheckCircle className="w-8 h-8 text-success-500" />
                                     </motion.div>
-                                    <p className="text-lg font-semibold text-gray-900">Account Created!</p>
-                                    <p className="text-sm text-gray-500">Redirecting to dashboard…</p>
+                                    <p className="text-lg font-semibold text-slate-100">Account Created!</p>
+                                    <p className="text-sm text-slate-400">Redirecting to dashboard…</p>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -241,7 +241,7 @@ const Login = () => {
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0 }}
-                                    className="bg-danger-50 text-danger-600 text-sm px-4 py-3 rounded-xl mb-6 font-medium"
+                                    className="bg-danger-50 text-danger-400 text-sm px-4 py-3 rounded-xl mb-6 font-medium"
                                 >
                                     {error}
                                 </motion.div>
@@ -264,7 +264,7 @@ const Login = () => {
                                     >
                                         {/* Email / Username */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                            <label className="block text-sm font-medium text-slate-300 mb-1.5">
                                                 {role === 'student' ? 'College Email' : 'Username'}
                                             </label>
                                             <input
@@ -273,13 +273,13 @@ const Login = () => {
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 placeholder={role === 'student' ? 'you@college.edu' : 'Enter username'}
                                                 required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                                                className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                             />
                                         </div>
 
                                         {/* Password */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+                                            <label className="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
                                             <div className="relative">
                                                 <input
                                                     type={showPassword ? 'text' : 'password'}
@@ -287,12 +287,12 @@ const Login = () => {
                                                     onChange={(e) => setPassword(e.target.value)}
                                                     placeholder="••••••••"
                                                     required
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all pr-12"
+                                                    className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all pr-12"
                                                 />
                                                 <button
                                                     type="button"
                                                     onClick={() => setShowPassword(!showPassword)}
-                                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
                                                 >
                                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                                 </button>
@@ -333,20 +333,20 @@ const Login = () => {
                                     >
                                         {/* Full Name */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
+                                            <label className="block text-sm font-medium text-slate-300 mb-1.5">Full Name</label>
                                             <input
                                                 type="text"
                                                 value={name}
                                                 onChange={(e) => setName(e.target.value)}
                                                 placeholder="e.g. Priya Reddy"
                                                 required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                                                className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                             />
                                         </div>
 
                                         {/* College Email */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                            <label className="block text-sm font-medium text-slate-300 mb-1.5">
                                                 College Email
                                             </label>
                                             <input
@@ -355,19 +355,19 @@ const Login = () => {
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 placeholder="you@college.edu"
                                                 required
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                                                className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                             />
                                         </div>
 
                                         {/* Department Select */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Department</label>
+                                            <label className="block text-sm font-medium text-slate-300 mb-1.5">Department</label>
                                             <div className="relative">
                                                 <select
                                                     value={department}
                                                     onChange={(e) => setDepartment(e.target.value)}
                                                     required
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all appearance-none pr-10"
+                                                    className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-900 text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all appearance-none pr-10"
                                                 >
                                                     <option value="" disabled>
                                                         Select department
@@ -378,13 +378,13 @@ const Login = () => {
                                                         </option>
                                                     ))}
                                                 </select>
-                                                <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                                                <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                                             </div>
                                         </div>
 
                                         {/* Password */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+                                            <label className="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
                                             <div className="relative">
                                                 <input
                                                     type={showPassword ? 'text' : 'password'}
@@ -393,12 +393,12 @@ const Login = () => {
                                                     placeholder="Min 6 characters"
                                                     required
                                                     minLength={6}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all pr-12"
+                                                    className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all pr-12"
                                                 />
                                                 <button
                                                     type="button"
                                                     onClick={() => setShowPassword(!showPassword)}
-                                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
                                                 >
                                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                                 </button>
@@ -407,7 +407,7 @@ const Login = () => {
 
                                         {/* Confirm Password */}
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                                            <label className="block text-sm font-medium text-slate-300 mb-1.5">
                                                 Confirm Password
                                             </label>
                                             <input
@@ -417,7 +417,7 @@ const Login = () => {
                                                 placeholder="Re-enter password"
                                                 required
                                                 minLength={6}
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                                                className="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-900 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                                             />
                                         </div>
 

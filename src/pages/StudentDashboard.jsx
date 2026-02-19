@@ -71,13 +71,13 @@ const StudentDashboard = () => {
                 label: 'My Complaints',
                 value: myComplaints.length,
                 icon: FileText,
-                color: 'text-primary-600 bg-primary-50',
+                color: 'text-primary-400 bg-primary-900/50',
             },
             {
                 label: 'Upvoted Issues',
                 value: complaints.filter((c) => c.upvotedBy.includes(user?.uid)).length,
                 icon: TrendingUp,
-                color: 'text-accent-600 bg-accent-50',
+                color: 'text-accent-400 bg-accent-900/50',
             },
             {
                 label: 'Resolved',
@@ -105,8 +105,8 @@ const StudentDashboard = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900">Student Dashboard</h1>
-                        <p className="text-gray-500 text-sm mt-1">
+                        <h1 className="text-2xl font-bold text-slate-100">Student Dashboard</h1>
+                        <p className="text-slate-400 text-sm mt-1">
                             Welcome back, {user?.name || 'Student'}
                         </p>
                     </div>
@@ -129,7 +129,7 @@ const StudentDashboard = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
-                            className="bg-white rounded-2xl p-5 shadow-card flex items-center gap-4"
+                            className="bg-slate-800 rounded-2xl p-5 shadow-card border border-slate-700/50 flex items-center gap-4"
                         >
                             <div
                                 className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.color}`}
@@ -137,15 +137,15 @@ const StudentDashboard = () => {
                                 <stat.icon className="w-6 h-6" />
                             </div>
                             <div>
-                                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                                <p className="text-xs text-gray-500">{stat.label}</p>
+                                <p className="text-2xl font-bold text-slate-100">{stat.value}</p>
+                                <p className="text-xs text-slate-400">{stat.label}</p>
                             </div>
                         </motion.div>
                     ))}
                 </div>
 
                 {/* Tabs */}
-                <div className="flex items-center gap-1 bg-gray-100 rounded-xl p-1 max-w-md">
+                <div className="flex items-center gap-1 bg-slate-900 rounded-xl p-1 max-w-md">
                     {tabs.map((tab) => (
                         <button
                             key={tab.key}
@@ -155,16 +155,16 @@ const StudentDashboard = () => {
                                 setFilterStatus('all');
                             }}
                             className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${activeTab === tab.key
-                                    ? 'bg-white shadow-sm text-gray-900'
-                                    : 'text-gray-500 hover:text-gray-700'
+                                ? 'bg-slate-700 shadow-sm text-slate-100'
+                                : 'text-slate-500 hover:text-slate-300'
                                 }`}
                         >
                             <tab.icon className="w-4 h-4" />
                             {tab.label}
                             <span
                                 className={`ml-1 px-1.5 py-0.5 rounded-md text-xs ${activeTab === tab.key
-                                        ? 'bg-primary-100 text-primary-600'
-                                        : 'bg-gray-200 text-gray-500'
+                                    ? 'bg-primary-900/50 text-primary-400'
+                                    : 'bg-slate-800 text-slate-500'
                                     }`}
                             >
                                 {tab.count}
@@ -176,21 +176,21 @@ const StudentDashboard = () => {
                 {/* Search + Filter Bar */}
                 <div className="flex flex-col sm:flex-row gap-3">
                     <div className="relative flex-1">
-                        <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                        <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                         <input
                             type="text"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search complaints..."
-                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-600 bg-slate-900 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                         />
                     </div>
                     <div className="relative">
-                        <Filter className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                        <Filter className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
                         <select
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}
-                            className="pl-10 pr-8 py-2.5 rounded-xl border border-gray-200 bg-white text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all appearance-none"
+                            className="pl-10 pr-8 py-2.5 rounded-xl border border-slate-600 bg-slate-900 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all appearance-none"
                         >
                             <option value="all">All Status</option>
                             <option value="pending-review">Pending Review</option>
@@ -224,13 +224,13 @@ const StudentDashboard = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-white rounded-2xl shadow-card p-12 text-center"
+                                className="bg-slate-800 rounded-2xl shadow-card border border-slate-700/50 p-12 text-center"
                             >
-                                <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                    <FileText className="w-8 h-8 text-gray-300" />
+                                <div className="w-16 h-16 rounded-2xl bg-slate-700 flex items-center justify-center mx-auto mb-4">
+                                    <FileText className="w-8 h-8 text-slate-500" />
                                 </div>
-                                <h3 className="text-lg font-semibold text-gray-700 mb-2">No complaints found</h3>
-                                <p className="text-sm text-gray-400 mb-6">
+                                <h3 className="text-lg font-semibold text-slate-300 mb-2">No complaints found</h3>
+                                <p className="text-sm text-slate-500 mb-6">
                                     {activeTab === 'my'
                                         ? "You haven't submitted any complaints yet."
                                         : 'No public complaints match your search.'}

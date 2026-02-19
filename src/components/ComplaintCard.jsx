@@ -8,7 +8,6 @@ import {
     AlertTriangle,
     CheckCircle2,
     Loader2,
-    Eye,
     EyeOff,
     Shield,
 } from 'lucide-react';
@@ -16,44 +15,44 @@ import { useComplaints } from '../context/ComplaintContext';
 import { useAuth } from '../context/AuthContext';
 
 // ========================================
-// Status Badge Component
+// Status Badge Component (Dark Theme)
 // ========================================
 const statusConfig = {
     'pending-review': {
         label: 'Pending Review',
-        color: 'bg-gray-100 text-gray-600',
+        color: 'bg-slate-700 text-slate-300',
         icon: Clock,
     },
     open: {
         label: 'Open',
-        color: 'bg-warning-50 text-warning-600',
+        color: 'bg-warning-50 text-warning-500',
         icon: AlertTriangle,
     },
     'in-progress': {
         label: 'In Progress',
-        color: 'bg-primary-50 text-primary-600',
+        color: 'bg-primary-900/50 text-primary-400',
         icon: Loader2,
     },
     resolved: {
         label: 'Resolved',
-        color: 'bg-success-50 text-success-600',
+        color: 'bg-success-50 text-success-500',
         icon: CheckCircle2,
     },
     rejected: {
         label: 'Rejected',
-        color: 'bg-danger-50 text-danger-600',
+        color: 'bg-danger-50 text-danger-400',
         icon: AlertTriangle,
     },
 };
 
 const urgencyConfig = {
-    high: { label: 'High', color: 'bg-danger-100 text-danger-700', pulse: true },
-    medium: { label: 'Medium', color: 'bg-warning-100 text-warning-700', pulse: false },
-    low: { label: 'Low', color: 'bg-gray-100 text-gray-600', pulse: false },
+    high: { label: 'High', color: 'bg-danger-50 text-danger-400', pulse: true },
+    medium: { label: 'Medium', color: 'bg-warning-50 text-warning-500', pulse: false },
+    low: { label: 'Low', color: 'bg-slate-700 text-slate-400', pulse: false },
 };
 
 // ========================================
-// Complaint Card
+// Complaint Card (Dark Theme)
 // ========================================
 const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
     const { toggleUpvote } = useComplaints();
@@ -72,7 +71,6 @@ const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
         }
     };
 
-    // Calculate time since submission
     const timeAgo = (dateStr) => {
         const diff = Date.now() - new Date(dateStr).getTime();
         const hours = Math.floor(diff / (1000 * 60 * 60));
@@ -83,7 +81,6 @@ const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
         return `${Math.floor(days / 7)}w ago`;
     };
 
-    // Check if overdue
     const isOverdue =
         complaint.deadline &&
         complaint.status !== 'resolved' &&
@@ -95,7 +92,7 @@ const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
             onClick={() => navigate(`/complaint/${complaint.id}`)}
-            className="bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 cursor-pointer group overflow-hidden"
+            className="bg-slate-800 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 cursor-pointer group overflow-hidden border border-slate-700/50"
         >
             {/* Urgency top stripe */}
             {urgency && (
@@ -104,7 +101,7 @@ const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
                         ? 'bg-gradient-to-r from-danger-500 to-accent-500'
                         : complaint.urgency === 'medium'
                             ? 'bg-gradient-to-r from-warning-400 to-warning-500'
-                            : 'bg-gray-200'
+                            : 'bg-slate-600'
                         }`}
                 />
             )}
@@ -133,7 +130,7 @@ const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
 
                         {/* Overdue Badge */}
                         {isOverdue && (
-                            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold bg-danger-100 text-danger-700 badge-urgent">
+                            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold bg-danger-50 text-danger-400 badge-urgent">
                                 <AlertTriangle className="w-3 h-3" />
                                 Overdue
                             </span>
@@ -141,31 +138,31 @@ const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
 
                         {/* Visibility */}
                         {complaint.visibility === 'private' && (
-                            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium bg-gray-100 text-gray-500">
+                            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-medium bg-slate-700 text-slate-400">
                                 <EyeOff className="w-3 h-3" />
                                 Private
                             </span>
                         )}
                     </div>
 
-                    <span className="text-xs text-gray-400">{timeAgo(complaint.createdAt)}</span>
+                    <span className="text-xs text-slate-500">{timeAgo(complaint.createdAt)}</span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2">
+                <h3 className="text-base font-semibold text-slate-100 mb-2 group-hover:text-primary-400 transition-colors line-clamp-2">
                     {complaint.title}
                 </h3>
 
                 {/* Description Preview */}
-                <p className="text-sm text-gray-500 mb-4 line-clamp-2 leading-relaxed">
+                <p className="text-sm text-slate-400 mb-4 line-clamp-2 leading-relaxed">
                     {complaint.description}
                 </p>
 
                 {/* Bottom Row: Meta + Upvote */}
                 <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3 text-xs text-gray-400">
+                    <div className="flex items-center gap-3 text-xs text-slate-500">
                         {/* Category */}
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-gray-50 text-gray-500">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-700 text-slate-400">
                             <Shield className="w-3 h-3" />
                             {complaint.category}
                         </span>
@@ -186,22 +183,22 @@ const ComplaintCard = ({ complaint, showUpvote = true, index = 0 }) => {
                                 whileTap={{ scale: 0.85 }}
                                 onClick={handleUpvote}
                                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all ${hasUpvoted
-                                    ? 'bg-primary-50 text-primary-600'
-                                    : 'bg-gray-50 text-gray-500 hover:bg-primary-50 hover:text-primary-600'
+                                    ? 'bg-primary-900/50 text-primary-400'
+                                    : 'bg-slate-700 text-slate-400 hover:bg-primary-900/50 hover:text-primary-400'
                                     }`}
                             >
                                 <motion.div
                                     animate={hasUpvoted ? { scale: [1, 1.3, 1] } : {}}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <ThumbsUp className={`w-4 h-4 ${hasUpvoted ? 'fill-primary-600' : ''}`} />
+                                    <ThumbsUp className={`w-4 h-4 ${hasUpvoted ? 'fill-primary-400' : ''}`} />
                                 </motion.div>
                                 {complaint.upvotes}
                             </motion.button>
                         )}
 
                         {/* Arrow */}
-                        <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-primary-500 group-hover:translate-x-1 transition-all" />
+                        <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
                     </div>
                 </div>
             </div>

@@ -72,16 +72,16 @@ const Timeline = ({ complaint }) => {
 
     if (isRejected) {
         return (
-            <div className="bg-white rounded-2xl shadow-card p-6">
-                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">
+            <div className="bg-slate-800 rounded-2xl shadow-card border border-slate-700/50 p-6">
+                <h3 className="text-sm font-semibold text-slate-200 mb-4 uppercase tracking-wider">
                     Status Timeline
                 </h3>
                 <div className="flex items-center gap-3 p-4 bg-danger-50 rounded-xl">
-                    <div className="w-10 h-10 rounded-full bg-danger-100 flex items-center justify-center">
-                        <AlertTriangle className="w-5 h-5 text-danger-600" />
+                    <div className="w-10 h-10 rounded-full bg-danger-900/50 flex items-center justify-center">
+                        <AlertTriangle className="w-5 h-5 text-danger-400" />
                     </div>
                     <div>
-                        <p className="text-sm font-semibold text-danger-700">Complaint Rejected</p>
+                        <p className="text-sm font-semibold text-danger-400">Complaint Rejected</p>
                         <p className="text-xs text-danger-500 mt-0.5">
                             {complaint.adminResponse || 'This complaint was rejected by the committee.'}
                         </p>
@@ -92,8 +92,8 @@ const Timeline = ({ complaint }) => {
     }
 
     return (
-        <div className="bg-white rounded-2xl shadow-card p-6">
-            <h3 className="text-sm font-semibold text-gray-900 mb-6 uppercase tracking-wider">
+        <div className="bg-slate-800 rounded-2xl shadow-card border border-slate-700/50 p-6">
+            <h3 className="text-sm font-semibold text-slate-200 mb-6 uppercase tracking-wider">
                 Status Timeline
             </h3>
 
@@ -133,25 +133,25 @@ const Timeline = ({ complaint }) => {
                             <div className="flex flex-col items-center">
                                 <div
                                     className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${isCompleted
-                                            ? 'bg-success-100'
-                                            : isActive
-                                                ? 'bg-primary-100 ring-4 ring-primary-50'
-                                                : 'bg-gray-100'
+                                        ? 'bg-success-900/50'
+                                        : isActive
+                                            ? 'bg-primary-900/50 ring-4 ring-primary-900/30'
+                                            : 'bg-slate-700'
                                         }`}
                                 >
                                     <StepIcon
                                         className={`w-5 h-5 ${isCompleted
-                                                ? 'text-success-600'
-                                                : isActive
-                                                    ? 'text-primary-600'
-                                                    : 'text-gray-300'
+                                            ? 'text-success-400'
+                                            : isActive
+                                                ? 'text-primary-400'
+                                                : 'text-slate-500'
                                             }`}
                                     />
                                 </div>
                                 {/* Vertical line */}
                                 {i < TIMELINE_STEPS.length - 1 && (
                                     <div
-                                        className={`w-0.5 h-12 ${isCompleted ? 'bg-success-300' : 'bg-gray-200'
+                                        className={`w-0.5 h-12 ${isCompleted ? 'bg-success-700' : 'bg-slate-700'
                                             }`}
                                     />
                                 )}
@@ -162,10 +162,10 @@ const Timeline = ({ complaint }) => {
                                 <div className="flex items-center gap-2">
                                     <p
                                         className={`text-sm font-semibold ${isCompleted
-                                                ? 'text-success-700'
-                                                : isActive
-                                                    ? 'text-primary-700'
-                                                    : 'text-gray-400'
+                                            ? 'text-success-400'
+                                            : isActive
+                                                ? 'text-primary-400'
+                                                : 'text-slate-500'
                                             }`}
                                     >
                                         {step.label}
@@ -178,13 +178,13 @@ const Timeline = ({ complaint }) => {
                                     )}
                                 </div>
                                 <p
-                                    className={`text-xs mt-0.5 ${isFuture ? 'text-gray-300' : 'text-gray-500'
+                                    className={`text-xs mt-0.5 ${isFuture ? 'text-slate-600' : 'text-slate-400'
                                         }`}
                                 >
                                     {step.description}
                                 </p>
                                 {dateStr && (
-                                    <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                                    <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
                                         <Clock className="w-3 h-3" />
                                         {dateStr}
                                     </p>
